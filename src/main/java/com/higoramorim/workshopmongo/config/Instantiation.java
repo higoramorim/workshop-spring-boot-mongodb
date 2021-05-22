@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.higoramorim.workshopmongo.domain.Post;
 import com.higoramorim.workshopmongo.domain.User;
+import com.higoramorim.workshopmongo.dto.AuthorDTO;
 import com.higoramorim.workshopmongo.repository.PostRepository;
 import com.higoramorim.workshopmongo.repository.UserRepository;
 
@@ -35,12 +36,13 @@ public class Instantiation implements CommandLineRunner {
 		User davi = new User(null, "Davi Amorim", "davi171213@gmail.com");
 		User sandra = new User(null, "Sandra Ramos", "sandra.d.almeida@hotmail.com");
 		
-		Post post1 = new Post(null, sdf.parse("21/03/2021"), "title", "mensagem", higor);
-		Post post2 = new Post(null, sdf.parse("30/03/2021"), "title: happy bithday", "mensagem: quero bolo", sandra);
-		Post post3 = new Post(null, sdf.parse("17/12/2020"), "title: happy bithday", "mensagem: te amo pai", davi);
-
-
 		userRepository.saveAll(Arrays.asList(higor, davi, sandra));
+		
+		Post post1 = new Post(null, sdf.parse("21/03/2021"), "title", "mensagem", new AuthorDTO(higor));
+		Post post2 = new Post(null, sdf.parse("30/03/2021"), "title: happy bithday", "mensagem: quero bolo", new AuthorDTO(sandra));
+		Post post3 = new Post(null, sdf.parse("17/12/2020"), "title: happy bithday", "mensagem: te amo pai", new AuthorDTO(davi));
+
+
 		postRepository.saveAll(Arrays.asList(post1, post2, post3));
 	}
 
